@@ -8,16 +8,21 @@
 <body>
     <canvas id="snow"></canvas>
     <div class="vignette"></div>
-    
-    <div class="glass-box">
-        <div class="ui-header">
-            <span class="brand">LANE CLOUD</span>
-            <span class="status">SYSTEM ACTIVE</span>
+
+    <div class="wrapper">
+        <div class="glass-card">
+            <div class="top-bar">
+                <div class="dots">
+                    <span class="red"></span><span class="yellow"></span><span class="green"></span>
+                </div>
+                <div class="title">LANE VISUALIZER V1</div>
+            </div>
+
+            <div class="iframe-box">
+                <iframe width="100%" height="600" scrolling="no" frameborder="no" allow="autoplay" 
+                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/123456789&color=%237c3aed&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+            </div>
         </div>
-        
-        <iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" 
-            src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/123456789&color=%237c3aed&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
-        </iframe>
     </div>
 
     <script src="script.js"></script>
