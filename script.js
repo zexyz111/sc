@@ -1,44 +1,62 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const snowContainer = document.getElementById('snow-container');
-    const snowflakeCount = 50;
+const canvas = document.getElementById('snow');
+const ctx = canvas.getContext('2d');
 
-    // Генерация снега
-    for (let i = 0; i < snowflakeCount; i++) {
-        createSnowflake();
-    }
+let width, height, snowflakes;
 
-    function createSnowflake() {
-        const flake = document.createElement('div');
-        flake.classList.add('snowflake');
-        
-        const size = Math.random() * 3 + 1 + 'px';
-        flake.style.width = size;
-        flake.style.height = size;
-        
-        flake.style.left = Math.random() * 100 + 'vw';
-        flake.style.top = Math.random() * 100 + 'vh';
-        
-        const duration = Math.random() * 10 + 5 + 's';
-        const delay = Math.random() * -20 + 's';
-        
-        flake.animate([
-            { transform: 'translateY(-10vh) translateX(0)', opacity: 0 },
-            { opacity: 0.5, offset: 0.2 },
-            { transform: 'translateY(110vh) translateX(20px)', opacity: 0 }
-        ], {
-            duration: parseFloat(duration) * 1000,
-            iterations: Infinity,
-            delay: parseFloat(delay) * 1000
+function init() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+    
+    snowflakes = [];
+    for (let i = 0; i < 150; i++) {
+        snowflakes.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            radius: Math.random() * 2 + 0.5,
+            speed: Math.random() * 1 + 0.5,
+            wind: Math.random() * 0.5 - 0.25,
+            opacity: Math.random() * 0.5 + 0.2
         });
-
-        snowContainer.appendChild(flake);
     }
+}
 
-    // Легкий параллакс для стеклянной панели
-    document.addEventListener('mousemove', (e) => {
-        const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
-        const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
-        document.querySelector('.glass-wrapper').style.transform = 
-            `translate(calc(-50% + ${moveX}px), calc(-50% + ${moveY}px))`;
+function draw() {
+    ctx.clearRect(0, 0, width, height);
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+    ctx.beginPath();
+    
+    snowflakes.forEach(f => {
+        ctx.moveTo(f.x, f.y);
+        ctx.arc(f.x, f.y, f.radius, 0, Math.PI * 2);
+        
+        // Движение
+        f.y += f.speed;
+        f.x += f.wind;
+        
+        // Респаун снежинки, если улетела
+        if (f.y > height) {
+            f.y = -10;
+            f.x = Math.random() * width;
+        }
     });
+    
+    ctx.fill();
+    requestAnimationFrame(draw);
+}
+
+// Следим за размером окна
+window.addEventListener('resize', init);
+
+init();
+draw();
+
+// Небольшой пасхалка: при клике сайт чуть-чуть "лагает" (глитч)
+document.addEventListener('mousedown', () => {
+    const container = document.querySelector('.iframe-container');
+    container.style.filter = 'hue-rotate(320deg) brightness(1.5) contrast(2)';
+    setTimeout(() => {
+        container.style.filter = 'hue-rotate(265deg) saturate(1.3) brightness(0.8)';
+    }, 100);
 });
