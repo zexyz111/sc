@@ -1,1 +1,42 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: #0d0d15;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+    overflow: hidden;
+}
 
+/* Анимированный фиолетовый фон */
+.background {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at 50% 50%, #2e1065 0%, #0d0d15 100%);
+    z-index: -1;
+}
+
+/* Эффект матового стекла */
+.glass-container {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 80%;
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+    text-align: center;
+}
+
+h1 { letter-spacing: 10px; font-weight: 200; color: #a855f7; }
+
+/* Кастомизация фрейма */
+.player-wrapper {
+    margin-top: 30px;
+    border-radius: 15px;
+    overflow: hidden;
+    filter: hue-rotate(260deg) contrast(1.1); /* Делает плеер фиолетовым */
+}
