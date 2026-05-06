@@ -1,52 +1,66 @@
 body, html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
+    margin: 0; padding: 0;
+    width: 100%; height: 100%;
     background: #050508;
+    font-family: 'Segoe UI', sans-serif;
     overflow: hidden;
-    font-family: sans-serif;
 }
 
-/* Снег на самом верхнем слое */
 #snow {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 100;
-    pointer-events: none; /* Чтобы можно было кликать сквозь снег */
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 10; pointer-events: none;
 }
 
-/* Виньетка и свечение */
 .vignette {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    box-shadow: inset 0 0 150px rgba(139, 92, 246, 0.1), 
-                inset 0 0 300px rgba(0, 0, 0, 0.8);
-    pointer-events: none;
-    z-index: 50;
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    box-shadow: inset 0 0 150px rgba(124, 58, 237, 0.1), 
+                inset 0 0 300px rgba(0, 0, 0, 0.9);
+    z-index: 5; pointer-events: none;
 }
 
-.app-container {
-    width: 100%;
-    height: 100%;
-    /* Фильтр делает сайт темным и уводит цвета в фиолетовый */
-    filter: hue-rotate(260deg) brightness(0.7) saturate(1.2) contrast(1.1);
-    animation: open 2s ease-out;
+.wrapper {
+    display: flex; align-items: center; justify-content: center;
+    height: 100vh; width: 100vw;
 }
 
-iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
+.glass-card {
+    width: 90%; max-width: 900px;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(40px) saturate(150%);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    overflow: hidden;
+    z-index: 100;
+    animation: slideUp 1.5s cubic-bezier(0.2, 1, 0.3, 1);
 }
 
-@keyframes open {
-    from { opacity: 0; filter: blur(50px) hue-rotate(260deg); transform: scale(1.1); }
-    to { opacity: 1; filter: blur(0px) hue-rotate(260deg); transform: scale(1); }
+.top-bar {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px 20px;
+    display: flex; align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.dots span {
+    width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 8px;
+}
+.red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
+
+.title {
+    margin-left: 20px; font-size: 10px; color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 4px; text-transform: uppercase;
+}
+
+.iframe-box {
+    padding: 10px;
+    /* Этот фильтр делает стандартный белый плеер ТЕМНЫМ И ФИОЛЕТОВЫМ */
+    filter: invert(0.9) hue-rotate(250deg) brightness(1.2) contrast(1.2);
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
 }
