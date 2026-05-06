@@ -1,47 +1,58 @@
-/* Основной фон и блюр */
-body {
-    background: #050508 !important;
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: #050508;
+    overflow: hidden;
 }
 
-/* Стеклянная навигация */
-.header {
-    background: rgba(13, 13, 20, 0.7) !important;
-    backdrop-filter: blur(20px) !important;
-    border-bottom: 1px solid rgba(168, 85, 247, 0.2) !important;
+/* Контейнер для плеера с фильтрами */
+.iframe-container {
+    width: 100%;
+    height: 100%;
+    /* Красим сайт в фиолетовый, добавляем контраст и блюр по краям */
+    filter: hue-rotate(265deg) saturate(1.3) brightness(0.8);
+    transition: all 1s ease;
 }
 
-/* Плеер внизу — делаем матовое стекло */
-.playControls {
-    background: rgba(10, 10, 15, 0.8) !important;
-    backdrop-filter: blur(30px) !important;
-    border-top: 1px solid rgba(168, 85, 247, 0.3) !important;
-    height: 60px !important;
+iframe {
+    width: 100vw;
+    height: 100vh;
+    border: none;
+    mask-image: radial-gradient(circle, black 70%, transparent 100%); /* Плавное затухание к краям */
 }
 
-/* Фиолетовый неон для активных элементов */
-.playControls__play, .sc-button-play, .playButton {
-    background-color: #7c3aed !important;
-    border-color: #7c3aed !important;
-    box-shadow: 0 0 15px rgba(124, 58, 237, 0.5) !important;
+/* Эффект глубокого погружения */
+.vignette {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 0 0 150px rgba(124, 58, 237, 0.2), 
+                inset 0 0 300px rgba(0, 0, 0, 0.9);
+    pointer-events: none;
+    z-index: 10;
 }
 
-/* Плавные карточки треков */
-.soundList__item, .trackItem {
-    background: rgba(255, 255, 255, 0.02) !important;
-    border-radius: 15px !important;
-    transition: all 0.4s ease !important;
-    border: 1px solid transparent !important;
+/* Холст для снега */
+#snow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+    pointer-events: none; /* Чтобы можно было кликать сквозь снег */
 }
 
-.soundList__item:hover {
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(168, 85, 247, 0.3) !important;
-    transform: translateY(-2px);
+/* Плавное появление при загрузке */
+.iframe-container {
+    animation: setup 2.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Скрываем лишний мусор и рекламу */
-.announcements, .sidebarModule, .l-footer {
-    display: none !important;
+@keyframes setup {
+    from { opacity: 0; transform: scale(1.05) translateY(10px); filter: blur(20px) hue-rotate(265deg); }
+    to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0px) hue-rotate(265deg); }
 }
-
-/* Анимация снега (добавляется через JS) */
