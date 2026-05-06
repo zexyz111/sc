@@ -1,40 +1,35 @@
 const canvas = document.getElementById('snow');
 const ctx = canvas.getContext('2d');
-
-let w, h, particles = [];
+let w, h, snowflakes = [];
 
 function init() {
     w = window.innerWidth;
     h = window.innerHeight;
-    canvas.width = w;
-    canvas.height = h;
-    particles = [];
-    for(let i = 0; i < 100; i++) {
-        particles.push({
+    canvas.width = w; canvas.height = h;
+    snowflakes = [];
+    for(let i = 0; i < 150; i++) {
+        snowflakes.push({
             x: Math.random() * w,
             y: Math.random() * h,
-            r: Math.random() * 2 + 1,
-            d: Math.random() * 1,
-            o: Math.random() * 0.5 + 0.2
+            r: Math.random() * 2 + 0.5,
+            v: Math.random() * 1 + 0.5
         });
     }
 }
 
 function draw() {
     ctx.clearRect(0, 0, w, h);
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+    ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
     ctx.beginPath();
-    for(let p of particles) {
-        ctx.moveTo(p.x, p.y);
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-        p.y += Math.cos(p.d) + 1 + p.r/2;
-        p.x += Math.sin(p.d) * 1;
-        if(p.y > h) p.y = -10, p.x = Math.random()*w;
+    for(let f of snowflakes) {
+        ctx.moveTo(f.x, f.y);
+        ctx.arc(f.x, f.y, f.r, 0, Math.PI*2);
+        f.y += f.v;
+        if(f.y > h) f.y = -10, f.x = Math.random()*w;
     }
     ctx.fill();
     requestAnimationFrame(draw);
 }
 
 window.onresize = init;
-init();
-draw();
+init(); draw();
