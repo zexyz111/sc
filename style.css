@@ -1,114 +1,47 @@
-:root {
-    --accent: #a855f7; /* Пурпурный неон */
-    --bg: #050508;
-    --glass: rgba(255, 255, 255, 0.03);
+/* Основной фон и блюр */
+body {
+    background: #050508 !important;
 }
 
-body, html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--bg);
-    color: white;
-    font-family: 'Inter', 'Segoe UI', sans-serif;
-    overflow: hidden;
+/* Стеклянная навигация */
+.header {
+    background: rgba(13, 13, 20, 0.7) !important;
+    backdrop-filter: blur(20px) !important;
+    border-bottom: 1px solid rgba(168, 85, 247, 0.2) !important;
 }
 
-/* Фоновое фиолетовое пятно */
-.bg-glow {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, transparent 70%);
-    z-index: -1;
-    filter: blur(80px);
+/* Плеер внизу — делаем матовое стекло */
+.playControls {
+    background: rgba(10, 10, 15, 0.8) !important;
+    backdrop-filter: blur(30px) !important;
+    border-top: 1px solid rgba(168, 85, 247, 0.3) !important;
+    height: 60px !important;
 }
 
-/* Снежинки */
-.snowflake {
-    position: fixed;
-    background: white;
-    border-radius: 50%;
-    opacity: 0.5;
-    pointer-events: none;
-    z-index: 0;
+/* Фиолетовый неон для активных элементов */
+.playControls__play, .sc-button-play, .playButton {
+    background-color: #7c3aed !important;
+    border-color: #7c3aed !important;
+    box-shadow: 0 0 15px rgba(124, 58, 237, 0.5) !important;
 }
 
-/* Стеклянный контейнер */
-.glass-wrapper {
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 600px;
-    padding: 40px;
-    background: var(--glass);
-    backdrop-filter: blur(25px) saturate(150%);
-    -webkit-backdrop-filter: blur(25px) saturate(150%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 30px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    animation: slideUp 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+/* Плавные карточки треков */
+.soundList__item, .trackItem {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border-radius: 15px !important;
+    transition: all 0.4s ease !important;
+    border: 1px solid transparent !important;
 }
 
-h1.glitch-text {
-    font-weight: 200;
-    letter-spacing: 12px;
-    margin: 0;
-    background: linear-gradient(to right, #fff, var(--accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    opacity: 0.8;
+.soundList__item:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(168, 85, 247, 0.3) !important;
+    transform: translateY(-2px);
 }
 
-.status-bar {
-    font-size: 10px;
-    letter-spacing: 2px;
-    margin-top: 10px;
-    opacity: 0.5;
+/* Скрываем лишний мусор и рекламу */
+.announcements, .sidebarModule, .l-footer {
+    display: none !important;
 }
 
-.dot {
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    background: var(--accent);
-    border-radius: 50%;
-    margin-right: 5px;
-    box-shadow: 0 0 10px var(--accent);
-}
-
-/* Анимации */
-@keyframes slideUp {
-    from { opacity: 0; transform: translate(-50%, -40%); }
-    to { opacity: 1; transform: translate(-50%, -50%); }
-}
-
-.fade-in {
-    animation: fadeIn 2s ease-in;
-    font-size: 10px;
-    margin-top: 20px;
-    opacity: 0.3;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 0.3; }
-}
-
-iframe {
-    border-radius: 20px;
-    margin-top: 25px;
-    filter: brightness(0.9) contrast(1.1);
-    transition: 0.5s;
-}
-
-iframe:hover {
-    filter: brightness(1) contrast(1.1);
-    box-shadow: 0 0 30px rgba(124, 58, 237, 0.2);
-}
+/* Анимация снега (добавляется через JS) */
